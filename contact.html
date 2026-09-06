@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Hair Studio - Contact</title>
-   <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <header>
@@ -18,29 +18,60 @@
 
     <main class="container" style="max-width: 600px;">
         <h2>Book an Appointment</h2>
-        <p style="margin-bottom: 1.5rem;">Reach out directly or send us a message to lock in your session.</p>
+        <p style="margin-bottom: 1.5rem;">Fill in your details below to send an instant appointment request via WhatsApp.</p>
 
-        <form style="display: flex; flex-direction: column; gap: 1rem;">
+        <form id="whatsappForm" style="display: flex; flex-direction: column; gap: 1rem;">
             <label>Name
-                <input type="text" placeholder="Your Full Name" required style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
+                <input type="text" id="clientName" placeholder="Peter" required style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
             </label>
-            <label>Phone / Email
-                <input type="text" placeholder="Contact Details" required style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
+            <label>Phone / Contact
+                <input type="text" id="clientContact" placeholder="+256 707 572054" required style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
             </label>
             <label>Requested Service
-                <select style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
-                    <option>Haircut & Lineup</option>
-                    <option>Coloring & Highlights</option>
-                    <option>Braiding / Protective Styles</option>
-                    <option>Deep Wash & Treatment</option>
+                <select id="clientService" style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
+                    <option value="Haircut & Lineup">Haircut & Lineup</option>
+                    <option value="Coloring & Highlights">Coloring & Highlights</option>
+                    <option value="Braids / Protective Styles">Braids / Protective Styles</option>
+                    <option value="Deep Wash & Treatment">Deep Wash & Treatment</option>
                 </select>
             </label>
-            <button type="submit" class="btn" style="border: none; cursor: pointer;">Submit Request</button>
+            <label>Preferred Date & Time
+                <input type="text" id="clientTime" placeholder="e.g. Tomorrow at 3:00 PM" required style="width: 100%; padding: 0.75rem; margin-top: 0.25rem;">
+            </label>
+            
+            <button type="submit" class="btn" style="border: none; cursor: pointer; background-color: #25D366; color: white;">Send Request via WhatsApp</button>
         </form>
     </main>
 
     <footer>
         <p>&copy; 2026 Aura Hair Studio. All rights reserved.</p>
     </footer>
+
+    <script>
+        // CONFIGURATION: Set your WhatsApp number here (e.g. 256700000000)
+        const SALON_PHONE_NUMBER = '+256 707 572054';
+
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('clientName').value;
+            const contact = document.getElementById('clientContact').value;
+            const service = document.getElementById('clientService').value;
+            const time = document.getElementById('clientTime').value;
+
+            // Build pre-filled text
+            const message = `Hello Aura Hair Studio! I would like to book an appointment:\n\n` +
+                            `*Name:* ${name}\n` +
+                            `*Contact:* ${contact}\n` +
+                            `*Service:* ${service}\n` +
+                            `*Requested Time:* ${time}`;
+
+            // Create WhatsApp API link
+            const whatsappUrl = `https://wa.me/${+256 707 572054}?text=${encodeURIComponent(message)}`;
+
+            // Redirect user to WhatsApp
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
 </body>
 </html>
